@@ -1,0 +1,6 @@
+[tool.ruff]
+select = ["E", "F", "I", "D"]
+
+[tool.mypy]
+strict = true
+
