@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """Update Paper.
 
 This will download the latest build of the given version to out_path, and write
