@@ -37,6 +37,25 @@ def download(version: str, build: int, out_path: str = "server.jar") -> None:
             file.write(response.read())
 
 
+def write_paper_version(version: str, build: int) -> None:
+    """Write to the Paper version file."""
+
+    with open("paper_version.txt", "w+") as version_file:
+        version_file.write(f"{version}-{build}")
+
+
+def read_paper_version() -> tuple[str, int]:
+    """Read the Paper version file.
+
+    This returns a tuple containing the version and the build number.
+    """
+
+    with open("paper_version.txt", "r") as version_file:
+        version, build = version_file.read().split("-")
+
+    return version, int(build)
+
+
 def main() -> None:
     """Update Paper."""
 
@@ -49,17 +68,15 @@ def main() -> None:
 
     build = latest_build(version)
     if path.exists("paper_version.txt"):
-        with open("paper_version.txt", "r+") as version_file:
-            if version_file.read() == f"{version}-{build}":
-                print("Paper is already the latest version")
-                return
+        if read_paper_version() == (version, build):
+            print("Paper is already on the latest version")
+            return
 
     print(f"Downloading Paper version {version} build {build}")
     download(version, build, out_path)
     print("Done.")
 
-    with open("paper_version.txt", "w+") as version_file:
-        version_file.write(f"{version}-{build}")
+    write_paper_version(version, build)
 
 
 if __name__ == "__main__":
