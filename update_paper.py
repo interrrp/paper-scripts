@@ -5,7 +5,7 @@
 This will download the latest build of the given version to out_path, and write
 the version and build number to paper_version.txt.
 
-Usage: python update_paper.py <version> [out_path=server.jar]
+Usage: ./update_paper.py <version> [out_path=server.jar]
 """
 
 import json
